@@ -35,4 +35,13 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'doorcontrol' => [
+        'url' => env('DOORCONTROL_URL'),
+        'key' => env('DOORCONTROL_KEY')
+    ],
+
+    'smartwaiver' => [
+        'key' => env('SMARTWAIVER_KEY')
+    ]
+
 ];

@@ -28,6 +28,11 @@ class VotingController extends Controller
         $user = auth()->user();
         $adUser = new ADUser($user, app('adldap'));
 
+        $votingEligibility = new VotingEligibility($user);
+        if($votingEligibility == false) {
+            return redirect()->to('/voting')->withErrors(['You do not meet the requirements to register to vote.']);
+        }
+
         try {
             $adUser->addGroup("Voting Members");
         } catch(\Exception $e) {

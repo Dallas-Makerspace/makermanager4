@@ -32,11 +32,11 @@
                             <input type="hidden" name="badge_id" value="{{ $badge->id }}">
 
                             <fieldset style="margin-bottom:15px;">
-                                <select name="disable" required="required" class="form-control">
+                                <select name="reason_id" required="required" class="form-control">
                                     <option value="">Select a Reason for Disabling</option>
-                                    <option value="Lost">Lost</option>
-                                    <option value="Damaged">Damaged</option>
-                                    <option value="Other">Other</option>
+                                    <option value="1">Lost</option>
+                                    <option value="2">Damaged</option>
+                                    <option value="3">Other</option>
                                 </select>
                             </fieldset>
                             <button type="submit" class="btn btn-default">Disable Badge</button>

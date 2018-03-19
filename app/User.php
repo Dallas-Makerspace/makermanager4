@@ -53,7 +53,6 @@ class User extends Authenticatable
     {
         return $this->first_name . ' ' . $this->last_name;
     }
-
     /**
      * Get the primary badge for a user.
      *
@@ -64,5 +63,10 @@ class User extends Authenticatable
     public function badge()
     {
         return $this->hasOne(Badge::class);
+    }
+
+    public function family()
+    {
+        return $this->hasMany(User::class);
     }
 }

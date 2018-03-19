@@ -32,6 +32,9 @@
 
                         @else
 
+                            <li class="nav-item">
+                                <a href="/voting" class="nav-link">Voting</a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="badgesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     My Badges
@@ -40,9 +43,6 @@
                                     <a class="dropdown-item" href="/badges">My Badge</a>
                                 </div>
                             </li>
-                            <li class="nav-item">
-                                <a href="/voting" class="nav-link">Voting</a>
-                            </li>
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="adminUsersDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -50,6 +50,7 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="adminUsersDropdown">
                                     <a class="dropdown-item" href="/admin/users">Users</a>
+                                    <a class="dropdown-item" href="/admin/badges">Badges</a>
                                 </div>
                             </li>
                         @endif

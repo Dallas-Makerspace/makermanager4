@@ -13,7 +13,7 @@ class AddVotingMailLog extends Migration
      */
     public function up()
     {
-        Schema::create('log_voting_mail', function(Blueprint $table) {
+        Schema::create('log_voting_mails', function(Blueprint $table) {
             $table->increments('id');
 
             $table->integer('user_id')->unsigned();
@@ -32,6 +32,6 @@ class AddVotingMailLog extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('log_voting_mails');
     }
 }

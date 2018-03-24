@@ -32,8 +32,6 @@ class BadgeService
     public function deactivate()
     {
         $r = $this->request('remove', $this->badge->number);
-
-        dd($r);
     }
 
     /**
@@ -55,10 +53,11 @@ class BadgeService
 
         $client = new Client([
             'base_uri' => $url,
-            'timeout' => 30
+            'timeout' => 30,
+            'verify' => false
         ]);
 
-        return $client->request('GET', '/', [
+        return $client->request('GET', '/accessControlApi', [
             'query' => [
                 'apiKey' => $key,
                 'action' => $action,

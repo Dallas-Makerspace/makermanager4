@@ -37,7 +37,10 @@ return [
 
     'doorcontrol' => [
         'url' => env('DOORCONTROL_URL'),
-        'key' => env('DOORCONTROL_KEY')
+        'key' => env('DOORCONTROL_KEY'),
+        'scrape_url' => env('DOORCONTROL_SCRAPE_URL'),
+        'scrape_username' => env('DOORCONTROL_SCRAPE_USERNAME'),
+        'scrape_password' => env('DOORCONTROL_SCRAPE_PASSWORD'),
     ],
 
     'smartwaiver' => [

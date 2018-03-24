@@ -26,11 +26,11 @@ class BadgeController extends Controller
     public function postEnable(Request $request)
     {
         $request->validate([
-            'badge_number' => 'required|alphanum|not_exists:badge,number'
+            'badge_number' => 'required|alphanum'
         ]);
 
         if(Badge::where('number', $request->get('badge_number'))->first() !== null) {
-            return redirect('/badges')->with();
+            return redirect('/badges');
         }
 
         $badgeNumber = str_pad($request->get('badge_number'), 10, 0, STR_PAD_LEFT);
@@ -43,9 +43,17 @@ class BadgeController extends Controller
 
         $badge = new Badge();
         $badge->number = $badgeNumber;
-        $badge->status = 'activate';
+        $badge->status = 'active';
+
+        $badge->whmcs_user_id = 0;
+        $badge->whmcs_service_id = 0;
+        $badge->whmcs_addon_id = 0;
+
+        // SELECT * FROM tblhosting WHERE domainstatus = 'active' AND userid = $user->whmcs_user_id
 
         auth()->user()->badge()->save($badge);
+
+        $badge->activate();
 
         return redirect('/');
     }

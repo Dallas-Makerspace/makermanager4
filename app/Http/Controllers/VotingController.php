@@ -14,6 +14,7 @@ class VotingController extends Controller
         $user = auth()->user();
         $hasVotingRights = $user->ldap->inGroup('Voting Members');
 
+        $hasVotingRights = false;
         if (!$hasVotingRights) {
             $votingEligibility = new VotingEligibility($user);
 

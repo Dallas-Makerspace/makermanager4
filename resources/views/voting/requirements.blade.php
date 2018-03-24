@@ -31,9 +31,11 @@
                         <h5 class="card-title">90 Days Paid Up</h5>
                         <p class="card-text">
                             @if($votingEligibility->checkBillPayment())
-                                You have kept up on your bills for the past 90 days!
+                                You have been a member for at least the immediate past 90 days. In fact, you've been eligible for {{ $votingEligibility->getDaysPaid() - 90 }} days!
                             @else
-                                You must have been a member for the immediate past 90 days to become a Regular Member.
+                                You must have been a member for the immediate past 90 days to become a Regular Voting Member.
+
+                                You have {{ $votingEligibility->getDaysPaid() - 90 }} days until you become eligible.
                             @endif
                         </p>
                     </div>

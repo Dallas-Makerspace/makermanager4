@@ -49,10 +49,18 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function bindLdapUser()
+    {
+        $ldapUser = app('adldap')->search()->where('samaccountname', '=', $this->username)->first();
+
+        $this->setLdapUser($ldapUser);
+    }
+
     public function fullName()
     {
         return $this->first_name . ' ' . $this->last_name;
     }
+
     /**
      * Get the primary badge for a user.
      *
@@ -68,5 +76,39 @@ class User extends Authenticatable
     public function family()
     {
         return $this->hasMany(User::class);
+    }
+
+    public function getLdapGroupsByParent()
+    {
+        if(is_null($this->ldap)) {
+            $this->bindLdapUser();
+        }
+
+        return $this->ldap->getGroups();
+
+        $categories = [];
+        $groups = $this->ldap->getGroups();
+        foreach(collect($groups) as $group) {
+            $dn = explode(',', $group->getDistinguishedName());
+
+            $parsedDn = [];
+            foreach($dn as $toParse) {
+                $e = explode('=', $toParse);
+                $parsedDn[$e[0]] = $e[1];
+            }
+            dd($parsedDn);
+            $categories = collect($dn)->keyBy(function($item) {
+
+            });
+            if(empty($categories)) {
+                // ???
+            }
+            dd($categories);
+
+            $d = $categories->slice(1, -2);
+
+            echo($d->toJson());
+        }
+        exit;
     }
 }

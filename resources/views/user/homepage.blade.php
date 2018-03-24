@@ -4,6 +4,10 @@
 
     <div class="container">
 
+        <div class="text-center">
+            <h1>Welcome, {{ $user->fullName() }}!</h1>
+        </div>
+
         <div class="row">
             <div class="col-md-8">
                 <div class="card">
@@ -43,10 +47,6 @@
                                 <a href="/admin/users/{{ $user->id }}/sync" class="disabled btn btn-outline-primary">Sync</a>
                             </div>
                             <div class="col-md-6">
-                                <div class="text-right">
-                                    <button class="disabled btn btn-warning">Suspend</button>
-                                    <button class="disabled btn btn-danger">Delete</button>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -68,6 +68,9 @@
                         @else
                             <p>No badges found.</p>
                         @endif
+                            <div class="text-center">
+                                <a href="/badges" class="btn btn-primary btn-sm">Change Badge</a>
+                            </div>
                     </div>
                 </div>
 
@@ -96,8 +99,8 @@
                 <div class="card">
                     <div class="card-header">Active Directory Groups</div>
                     <ul class="list-group list-group-flush">
-                        @foreach($user->ldap->getGroups() as $group)
-                            <li class="list-group-item" title="{{ $group->getObjectCategoryDn() }}">{{ $group->getName() }}</li>
+                        @foreach($user->getLdapGroupsByParent() as $group)
+                            <li class="list-group-item" data-toggle="tooltip" data-placement="left" title="{{ $group->getDescription() }}">{{ $group->getName() }}</li>
                         @endforeach
                     </ul>
                 </div>

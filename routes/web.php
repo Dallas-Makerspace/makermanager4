@@ -17,13 +17,14 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth'], function() {
-    Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/', 'UserController@getHome');
 
-    Route::get('/waiver', 'HomeController@getWaiver');
-    Route::post('/waiver', 'HomeController@postWaiver');
+    Route::get('/waiver', 'UserController@getWaiver');
+    Route::post('/waiver', 'UserController@postWaiver');
 
     Route::group(['prefix' => 'badges'], function() {
         Route::get('/', 'BadgeController@index');
+        Route::post('/enable', 'BadgeController@postEnable');
         Route::post('/disable', 'BadgeController@postDisable');
     });
 

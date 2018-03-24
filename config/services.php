@@ -45,6 +45,10 @@ return [
 
     'smartwaiver' => [
         'key' => env('SMARTWAIVER_KEY')
+    ],
+
+    'lob' => [
+        'key' => env('LOB_KEY')
     ]
 
 ];

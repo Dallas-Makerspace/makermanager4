@@ -33,7 +33,7 @@ class VotingController extends Controller
         try {
 
             $adUser->addGroup("Voting Members");
-            Mail::to($user)->send(new VotingRightsEnabled());
+            Mail::to($user)->cc('accounts@dallasmakerspace.org')->send(new VotingRightsEnabled());
 
         } catch(\Exception $e) {
             return redirect()->back()->withErrors(['There was an error adding you to the Voting Members group.']);

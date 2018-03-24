@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\VotingRightsEnabled;
 use App\User;
 use Illuminate\Http\Request;
 use MakerManager\ActiveDirectory\ADUser;
 use MakerManager\VotingEligibility;
+use Illuminate\Support\Facades\Mail;
 
 class VotingController extends Controller
 {
@@ -29,7 +31,10 @@ class VotingController extends Controller
         $adUser = new ADUser($user, app('adldap'));
 
         try {
+
             $adUser->addGroup("Voting Members");
+            Mail::to($user)->send(new VotingRightsEnabled());
+
         } catch(\Exception $e) {
             return redirect()->back()->withErrors(['There was an error adding you to the Voting Members group.']);
         }

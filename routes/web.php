@@ -35,7 +35,7 @@ Route::group(['middleware' => 'auth'], function() {
     });
 });
 
-Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'namespace' => 'Admin'], function() {
+Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin', 'namespace' => 'Admin'], function() {
 
     Route::any('users/data', 'UserController@anyData');
     Route::resource('users', 'UserController');

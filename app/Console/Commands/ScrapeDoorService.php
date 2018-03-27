@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\LogUserVisit;
 use Illuminate\Console\Command;
 
 class ScrapeDoorService extends Command
@@ -76,14 +77,29 @@ class ScrapeDoorService extends Command
                 $records[] = [
                     'Record ID' => $item[0],
                     'Card NO' => $item[1],
-                    'Badge' => $this->convertToBadgeNumber($item[1]),
                     'Name' => $item[2],
                     'Status' => $item[3],
                     'DateTime' => $item[4]
                 ];
 
-                dd($records);
+                preg_match("/(Allow|Forbid) (IN|OUT)\[\#(\d+)(DOOR)\]/", $item[3], $matches);
+                if(count($matches) < 5) {
+                    $this->error('Unexpected input: ' . $item[3]);
+                    continue;
+                }
+
+                LogUserVisit::firstOrCreate([
+                    'source' => 'china',
+                    'source_id' => $item[0],
+                    'card_number' => $item[1],
+                    'source_name' => $item[2],
+                    'status' => $matches[1],
+                    'door' => (int)$matches[3],
+                    'created_at' => date('Y-m-d H:i:s', strtotime($item[4]))
+                ]);
             }
+
+            $this->info("Turning to page " . $i);
         }
 
 

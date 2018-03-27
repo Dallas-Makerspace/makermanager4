@@ -4,27 +4,29 @@ namespace Deployer;
 require 'recipe/laravel.php';
 
 // Project name
-set('application', 'MakerManager4');
+set('application', 'Maker Manager 4');
+
 
 // Project repository
-set('repository', '');
+set('repository', 'git@github.com:Dallas-Makerspace/makermanager4.git');
 
 // [Optional] Allocate tty for git clone. Default value is false.
-set('git_tty', true); 
+set('git_tty', true);
 
-// Shared files/dirs between deploys 
+// Shared files/dirs between deploys
 add('shared_files', []);
 add('shared_dirs', []);
 
-// Writable dirs by web server 
+// Writable dirs by web server
 add('writable_dirs', []);
 set('allow_anonymous_stats', false);
 
 // Hosts
 
-host('project.com')
-    ->set('deploy_path', '~/{{application}}');    
-    
+host('ec2-18-232-250-239.compute-1.amazonaws.com')
+    ->user('deploy')
+    ->set('deploy_path', '/srv/www/makermanager.dallasmakerspace.org/app');
+
 // Tasks
 
 task('build', function () {
@@ -35,6 +37,3 @@ task('build', function () {
 after('deploy:failed', 'deploy:unlock');
 
 // Migrate database before symlink new release.
-
-before('deploy:symlink', 'artisan:migrate');
-

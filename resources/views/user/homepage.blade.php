@@ -43,7 +43,7 @@
                     <div class="card-footer">
                         <div class="row">
                             <div class="col-md-6">
-                                <a href="/admin/users/{{ $user->id }}/edit" class="btn btn-primary">Edit</a>
+                                <a href="/admin/users/{{ $user->id }}/edit" class="disabled btn btn-primary">Edit</a>
                                 <a href="/admin/users/{{ $user->id }}/sync" class="disabled btn btn-outline-primary">Sync</a>
                             </div>
                             <div class="col-md-6">

@@ -44,6 +44,8 @@ class SendVotingMail extends Command
      */
     public function handle()
     {
+        throw new \Exception("This has already been processed for 2018, please remove this for 2019.");
+
         $users = User::where('user_id', NULL)
             ->where('ad_active', true)
             ->where('address_1', '<>', '')
@@ -63,7 +65,6 @@ class SendVotingMail extends Command
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
 <title>Lob.com Sample 8.5x11 Letter</title>
 <style>
   *, *:before, *:after {

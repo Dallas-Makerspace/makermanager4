@@ -49,6 +49,15 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+//    public function isAdmin()
+//    {
+//        if(is_null($this->ldap)) {
+//            $this->bindLdapUser();
+//        }
+//
+//        return $this->ldap->inGroup("MakerManager Admins");
+//    }
+
     public function bindLdapUser()
     {
         $ldapUser = app('adldap')->search()->where('samaccountname', '=', $this->username)->first();

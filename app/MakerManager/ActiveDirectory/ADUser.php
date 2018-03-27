@@ -16,7 +16,15 @@ class ADUser
     /**
      * @var User
      */
-    protected $eloquentUser;
+    protected $eloquentUser;  
+        
+    /**
+     * @param $groupName Comman Name value as search query
+     */
+    private function _getGroupsByName($groupName)
+    {
+        return $this->getGroups->where(['cn' => $groupName])->first();
+    }
 
     public function __construct(User $user, AdldapInterface $adldap)
     {
@@ -98,26 +106,18 @@ class ADUser
     }
 
     public function getGroups()
-    {
-
+    {   
+        return $this->ldap->search()->groups();
     }
 
     public function addGroup($groupName)
     {
-        $group = $this->ldap->search()->groups()->where([
-            'cn' => $groupName
-        ])->first();
-
-        return $group->addMember($this->eloquentUser->ldap);
+        return $this->_getGroupsByName($groupName)->addMember($this->eloquentUser->ldap);
     }
 
     public function removeGroup($groupName)
     {
-        $group = $this->ldap->search()->groups()->where([
-            'cn' => $groupName
-        ])->first();
-
-        return $group->removeMember($this->eloquentUser->ldap);
+        return $this->_getGroupsByName($groupName)->removeMember($this->eloquentUser->ldap);
     }
 
 }

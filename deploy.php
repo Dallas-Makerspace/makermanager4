@@ -25,7 +25,7 @@ set('allow_anonymous_stats', false);
 
 host('ec2-18-232-250-239.compute-1.amazonaws.com')
     ->user('deploy')
-    ->set('deploy_path', '/srv/www/votingrights.dallasmakerspace.org/app');
+    ->set('deploy_path', '/srv/www/makermanager.dallasmakerspace.org/app');
 // Tasks
 
 task('build', function () {

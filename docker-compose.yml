@@ -20,7 +20,7 @@ services:
           args:
             FWATCHDOG_VERSION: "0.7.1"
         volumes:
-            - ./logs/cakephp:/www/app/logs
+            - ./logs/makermanager:/www/app/logs
         links:
             - db
         environment:

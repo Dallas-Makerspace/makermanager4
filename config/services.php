@@ -49,6 +49,11 @@ return [
 
     'lob' => [
         'key' => env('LOB_KEY')
+    ],
+
+    'whmcs' => [
+        'username' => env('WHMCS_USERNAME'),
+        'password' => env('WHMCS_PASSWORD')
     ]
 
 ];

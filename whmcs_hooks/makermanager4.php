@@ -1,6 +1,8 @@
 <?php
 
-define("MM4_URL", "https://accounts.dallasmakerspace.org/makermanager");
+define("MM4_URL", "https://makermanager.dallasmakerspace.org/");
+define("MM4_USERNAME", "");
+define("MM4_PASSWORD", "");
 
 $availableHooks = [
     "AcceptQuote",
@@ -321,6 +323,7 @@ foreach($availableHooks as $hook) {
 
         curl_setopt_array($ch, [
             CURLOPT_URL => MM4_URL . '/api/v1/whmcs/process-hook',
+            CURLOPT_USERPWD => MM4_USERNAME . ":" . MM4_PASSWORD,
             CURLOPT_POST => true,
             CURLOPT_POSTFIELDS => [
                 'hook' => $hook,

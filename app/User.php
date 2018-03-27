@@ -29,7 +29,11 @@ class User extends Authenticatable
      */
     const UPDATED_AT = 'modified';
 
-
+    protected $dates = [
+        'created',
+        'modified',
+        'voting_enabled_at'
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -119,5 +123,10 @@ class User extends Authenticatable
             echo($d->toJson());
         }
         exit;
+    }
+  
+    public function votingRegistrationLogs()
+    {
+        return $this->hasMany(LogVotingRegistration::class);
     }
 }

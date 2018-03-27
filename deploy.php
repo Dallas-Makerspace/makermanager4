@@ -11,13 +11,13 @@ set('application', 'Maker Manager 4');
 set('repository', 'git@github.com:Dallas-Makerspace/makermanager4.git');
 
 // [Optional] Allocate tty for git clone. Default value is false.
-set('git_tty', true);
+set('git_tty', true); 
 
-// Shared files/dirs between deploys
+// Shared files/dirs between deploys 
 add('shared_files', []);
 add('shared_dirs', []);
 
-// Writable dirs by web server
+// Writable dirs by web server 
 add('writable_dirs', []);
 set('allow_anonymous_stats', false);
 
@@ -25,8 +25,7 @@ set('allow_anonymous_stats', false);
 
 host('ec2-18-232-250-239.compute-1.amazonaws.com')
     ->user('deploy')
-    ->set('deploy_path', '/srv/www/makermanager.dallasmakerspace.org/app');
-
+    ->set('deploy_path', '/srv/www/votingrights.dallasmakerspace.org/app');
 // Tasks
 
 task('build', function () {

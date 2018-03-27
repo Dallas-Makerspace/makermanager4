@@ -17,12 +17,15 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth'], function() {
-    Route::get('/', function() {
-        return redirect()->to('/voting');
-    })->name('home');
+    Route::get('/', 'UserController@getHome');
+
+    Route::get('/waiver', 'UserController@getWaiver');
+    Route::post('/waiver', 'UserController@postWaiver');
 
     Route::group(['prefix' => 'badges'], function() {
         Route::get('/', 'BadgeController@index');
+        Route::post('/enable', 'BadgeController@postEnable');
+        Route::post('/disable', 'BadgeController@postDisable');
     });
 
     Route::group(['prefix' => 'voting'], function() {
@@ -30,5 +33,14 @@ Route::group(['middleware' => 'auth'], function() {
         Route::post('/enable', 'VotingController@postEnable');
         Route::post('/disable', 'VotingController@postDisable');
     });
+});
+
+Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin', 'namespace' => 'Admin'], function() {
+
+    Route::any('users/data', 'UserController@anyData');
+    Route::resource('users', 'UserController');
+
+    Route::any('badges/data', 'BadgeController@anyData');
+    Route::resource('badges', 'BadgeController');
 
 });

@@ -24,6 +24,7 @@ class VotingController extends Controller
             $hasVotingRights = $user->ldap->inGroup('Voting Members');
         }
 
+        $hasVotingRights = false;
         if (!$hasVotingRights) {
             $votingEligibility = new VotingEligibility($user);
 
@@ -41,6 +42,11 @@ class VotingController extends Controller
     {
         $user = auth()->user();
         $adUser = new ADUser($user, app('adldap'));
+
+        $votingEligibility = new VotingEligibility($user);
+        if($votingEligibility == false) {
+            return redirect()->to('/voting')->withErrors(['You do not meet the requirements to register to vote.']);
+        }
 
         try {
             $adUser->addGroup("Voting Members");

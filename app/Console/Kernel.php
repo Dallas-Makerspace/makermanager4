@@ -2,6 +2,9 @@
 
 namespace App\Console;
 
+use App\Console\Commands\ScrapeDoorService;
+use App\Console\Commands\SendVotingMail;
+use App\Console\Commands\TestChinaConvert;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -13,7 +16,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        ScrapeDoorService::class,
+        TestChinaConvert::class,
+        SendVotingMail::class,
     ];
 
     /**

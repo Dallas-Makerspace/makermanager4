@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/Chicago',
 
     /*
     |--------------------------------------------------------------------------
@@ -159,6 +159,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\SmartwaiverServiceProvider::class,
+        App\Providers\LobServiceProvider::class,
 
     ],
 

@@ -81,5 +81,36 @@ class VotingEligibility
         return $this->user->user_id == null;
     }
 
+    public function getDaysPaid() : int
+    {
+        $invoices = \DB::connection('whmcs')
+            ->table('tblinvoices')
+            ->join('tblinvoiceitems', 'tblinvoices.id', '=', 'tblinvoiceitems.invoiceid')
+            ->where('tblinvoices.userid', $this->user->whmcs_user_id)
+            ->where('tblinvoices.duedate', '<', date('Y-m-d'))
+            ->orderBy('tblinvoices.date', 'desc')
+            ->get();
+
+        $paid = 0;
+
+        // quick check for older yearly
+        $daysPaid = 0;
+        $lastDatePaid = new Carbon();
+        foreach($invoices as $invoice) {
+            $thisDatePaid = new Carbon($invoice->datepaid);
+            if($lastDatePaid->diffInDays($thisDatePaid) > 34) {
+                // if any gap in billing reset their paid days
+                $daysPaid = 0;
+            } else {
+                $daysPaid += $lastDatePaid->diffInDays($thisDatePaid);
+            }
+            // For debugging
+            // echo "{$thisDatePaid} - {$lastDatePaid} = {$lastDatePaid->diffInDays($thisDatePaid)} <br>";
+            $lastDatePaid = $thisDatePaid;
+        }
+
+        return $daysPaid;
+    }
+
 
 }

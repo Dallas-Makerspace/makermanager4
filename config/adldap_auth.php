@@ -259,6 +259,8 @@ return [
 
         //'username' => 'samaccountname',
 
+        \MakerManager\ActiveDirectory\LdapAttributeHandler::class,
+
     ],
 
     /*

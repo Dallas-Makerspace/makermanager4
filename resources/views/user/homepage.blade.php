@@ -75,8 +75,10 @@
                 </div>
 
                 <br>
-
-                @if($user->family->isNotEmpty())
+                @if(! is_null($user->user_id))
+                    <a href="/admin/users/{{ $user->user_id }}" class="btn btn-lg btn-outline-primary btn-block">Go to Main Account</a>
+                    <br>
+                @else
                 <div class="card">
                     <div class="card-header">Family</div>
                     <table class="table mb-0">
@@ -88,12 +90,13 @@
                             </tr>
                         @endforeach
                     </table>
+
+                    <div class="card-footer">
+                        <a href="/family/create" class="btn btn-primary">Create Family Member</a>
+                    </div>
                 </div>
 
                 <br>
-                @elseif(! is_null($user->user_id))
-                    <a href="/admin/users/{{ $user->user_id }}" class="btn btn-lg btn-outline-primary btn-block">Go to Main Account</a>
-                    <br>
                 @endif
 
                 <div class="card">

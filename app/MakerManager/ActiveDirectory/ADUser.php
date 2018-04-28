@@ -52,7 +52,7 @@ class ADUser
         ]);
 
         if ( ! $user->save()) {
-            // error
+            \Log::error('Failed to add user to ActiveDirectory');
         }
 
         return $user;

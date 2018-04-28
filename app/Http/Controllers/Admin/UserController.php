@@ -93,4 +93,5 @@ class UserController extends Controller
     {
         $this->authorize('destroy', $user);
     }
+
 }

@@ -87,7 +87,7 @@ class BadgeController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**

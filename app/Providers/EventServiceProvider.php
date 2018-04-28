@@ -13,9 +13,23 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\Event' => [
-            'App\Listeners\EventListener',
+        'App\Events\InvoicePaid' => [
         ],
+        'App\Events\MemberAdded' => [
+            'App\Listeners\ActiveDirectory\AddMember',
+        ],
+        'App\Events\MemberEdited' => [
+            'App\Listeners\ActiveDirectory\UpdateMember',
+        ],
+        'App\Events\AfterModuleSuspend' => [
+            'App\Listeners\ActiveDirectory\UpdateMember',
+        ],
+        'App\Events\AfterModuleTerminate' => [
+            'App\Listeners\ActiveDirectory\UpdateMember',
+        ],
+        'App\Events\AddonActivation' => [
+
+        ]
     ];
 
     /**

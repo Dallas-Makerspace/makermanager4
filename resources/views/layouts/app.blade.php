@@ -35,13 +35,8 @@
                             <li class="nav-item">
                                 <a href="/voting" class="nav-link">Voting</a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="badgesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    My Badges
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="badgesDropdown">
-                                    <a class="dropdown-item" href="/badges">My Badge</a>
-                                </div>
+                            <li class="nav-item">
+                                <a href="/badges" class="nav-link">Badges</a>
                             </li>
 
                             @if(auth()->user()->is_admin)

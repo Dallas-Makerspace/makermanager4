@@ -12,7 +12,6 @@ class User extends Authenticatable
     use HasLdapUser;
 
     public $remember_token = false;
-    public $timestamps = false;
 
 
     /**
@@ -41,7 +40,12 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'first_name',
+        'last_name',
+        'username',
+        'phone',
+        'email',
+        'password',
     ];
 
     /**
@@ -89,6 +93,11 @@ class User extends Authenticatable
     public function family()
     {
         return $this->hasMany(User::class);
+    }
+
+    public function unusedFamilyBadges()
+    {
+        return Badge::where('whmcs_user_id', $this->whmcs_user_id)->whereNull('user_id')->get();
     }
 
     public function getLdapGroupsByParent()

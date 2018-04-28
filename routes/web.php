@@ -22,6 +22,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/waiver', 'UserController@getWaiver');
     Route::post('/waiver', 'UserController@postWaiver');
 
+    Route::resource('/family', 'FamilyController');
+
     Route::group(['prefix' => 'badges'], function() {
         Route::get('/', 'BadgeController@index');
         Route::post('/enable', 'BadgeController@postEnable');

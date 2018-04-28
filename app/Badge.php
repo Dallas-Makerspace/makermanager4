@@ -29,7 +29,6 @@ class Badge extends Model
         $this->user->ldap->employee_id = $this->number;
         $this->user->ldap->save();
 
-
         $history = new BadgeHistory();
         $history->badge_id = $this->id;
         $history->badge_number = $this->number;

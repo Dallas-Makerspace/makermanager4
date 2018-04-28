@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Badge;
+use App\BadgeHistory;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use MakerManager\BadgeService;
 use Yajra\DataTables\DataTables;
 
 class BadgeController extends Controller
@@ -44,7 +46,7 @@ class BadgeController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.badge.create');
     }
 
     /**
@@ -55,7 +57,37 @@ class BadgeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'description' => 'required',
+            'number' => 'required'
+        ]);
+
+        $b = new Badge();
+        $b->user_id = 0;
+        $b->description = $request->get('description');
+        $b->whmcs_user_id = 0;
+        $b->whmcs_service_id = 0;
+        $b->whmcs_addon_id = 0;
+        $b->number = $request->get('number');
+        $b->status = 'active';
+
+        try {
+            $b->save();
+
+            $badgeService = new BadgeService($b);
+            $badgeService->activate();
+        } catch(\Exception $e) {
+            return redirect()->back()->withErrors($e);
+        }
+
+        $history = new BadgeHistory();
+        $history->badge_id = $b->id;
+        $history->badge_number = $b->number;
+        $history->modified_by = auth()->user()->id;
+        $history->changed_to = 'active';
+        $history->save();
+
+        return redirect('/admin/badges/' . $b->id);
     }
 
     /**

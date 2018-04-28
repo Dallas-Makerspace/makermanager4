@@ -20,6 +20,8 @@ Route::group(['namespace' => 'Api'], function() {
 
         Route::post('whmcs/process-hook', 'WhmcsController@postProcessHook')->middleware(['whmcs']);
 
+        Route::post('smartwaiver/process-hook', 'SmartwaiverController@postProcessHook');
+
     });
 
 });

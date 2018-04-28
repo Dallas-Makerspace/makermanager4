@@ -44,7 +44,9 @@ return [
     ],
 
     'smartwaiver' => [
-        'key' => env('SMARTWAIVER_KEY')
+        'key' => env('SMARTWAIVER_KEY'),
+        'private_key' => env('SMARTWAIVER_PRIVATE_KEY'),
+        'webhook_url' => env('SMARTWAIVER_WEBHOOK_URL'),
     ],
 
     'lob' => [

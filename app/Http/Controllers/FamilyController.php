@@ -23,7 +23,11 @@ class FamilyController extends Controller
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
-     */
+    $request->validate([
+            'unique_id' => 'required',
+            'event' => 'required',
+            'credential' => 'required'
+        ]); */
     public function create()
     {
         return view('family.create');

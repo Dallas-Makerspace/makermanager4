@@ -86,7 +86,7 @@
                             <tr>
                                 <td><a href="/admin/users/{{ $family->id }}">{{ $family->fullName() }}</a></td>
                                 <td>{{ $family->ad_active ? 'Active' : 'Inactive' }}</td>
-                                <td>{{ $family->badge->number }}</td>
+                                <td>{{ $family->badge->number ?? '' }}</td>
                             </tr>
                         @endforeach
                     </table>

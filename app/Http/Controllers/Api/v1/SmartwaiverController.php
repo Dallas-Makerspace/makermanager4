@@ -16,7 +16,12 @@ class SmartwaiverController extends Controller
         ]);
 
         // Verify credentials
+        $privateKey = config('services.smartwaiver.private_key');
 
+        $expected = md5($privateKey . $request->get('unique_id'));
+        if($expected !== $request->get('credential')) {
+            return response('Not authorized.', 401);
+        }
 
         $hook = new SmartwaiverHook();
         $hook->hook = $request->get('event');

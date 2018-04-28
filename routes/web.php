@@ -30,10 +30,16 @@ Route::group(['middleware' => 'auth'], function() {
         Route::post('/disable', 'BadgeController@postDisable');
     });
 
+
     Route::group(['prefix' => 'voting'], function() {
         Route::get('/', 'VotingController@getIndex');
         Route::post('/enable', 'VotingController@postEnable');
         Route::post('/disable', 'VotingController@postDisable');
+    });
+
+    Route::group(['prefix' => 'logistics'], function() {
+        Route::get('/bin-audit', 'LogisticsController@getBinAudit');
+        Route::post('/bin-audit', 'LogisticsController@postBinAudit');
     });
 });
 

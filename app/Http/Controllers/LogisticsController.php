@@ -32,6 +32,9 @@ class LogisticsController extends Controller
         if(is_null($user)) {
             return redirect('/logistics/bin-audit')->withErrors(['This person is not a member.']);
         }
+        if($user->ad_active == false) {
+            return redirect('/logistics/bin-audit')->withErrors(['This person is no longer an active member.']);
+        }
 
         $request->session()->flash('success', 'This person is a member.');
 

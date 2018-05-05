@@ -14,9 +14,11 @@ class WhmcsController extends Controller
             'payload' => 'required'
         ]);
 
+        $payload = unserialize(base64_decode($request->get('payload')));
+
         $hook = new WhmcsHook();
         $hook->hook = $request->get('hook');
-        $hook->payload = $request->get('payload');
+        $hook->payload = $payload;
         $hook->save();
 
         return response('', 200);

@@ -1,8 +1,5 @@
 <?php
 
-define("MM4_URL", "https://makermanager.dallasmakerspace.org/");
-define("MM4_USERNAME", "");
-define("MM4_PASSWORD", "");
 
 $availableHooks = [
     "AcceptQuote",
@@ -332,3 +329,80 @@ foreach($availableHooks as $hook) {
         ]);
     });
 }
+
+<?php
+
+
+define("MM4_URL", "https://makermanager.dallasmakerspace.org/");
+define("MM4_USERNAME", "");
+define("MM4_PASSWORD", "");
+
+function curlPostData($url, $payload) {
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, true);
+
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $vars);
+    $output = curl_exec($ch);
+    curl_close($ch);
+}
+
+function sendAddonActivation($vars) {
+    curlPostData('https://accounts.dallasmakerspace.org/makermanager/endpoints/addonActivate', $vars);
+}
+
+function sendAddonCancelled($vars) {
+    curlPostData('https://accounts.dallasmakerspace.org/makermanager/endpoints/addonCancel', $vars);
+}
+
+function sendClientAdd($vars) {
+    $vars['username'] = $vars['customfields'][2];
+    curlPostData('https://accounts.dallasmakerspace.org/makermanager/endpoints/clientAdd', $vars);
+}
+
+function sendClientChangePassword($vars) {
+    curlPostData('https://accounts.dallasmakerspace.org/makermanager/endpoints/clientChangePassword', $vars);
+}
+
+function sendClientEdit($vars) {
+    curlPostData('https://accounts.dallasmakerspace.org/makermanager/endpoints/clientEdit', $vars);
+}
+
+function sendInvoicePaid($vars) {
+    curlPostData('https://accounts.dallasmakerspace.org/makermanager/endpoints/invoicePaid', $vars);
+}
+
+function sendAfterModuleCreate($vars) {
+    // Normalize data under params key for call
+    $vars = $vars['params'];
+    curlPostData('https://accounts.dallasmakerspace.org/makermanager/endpoints/moduleCreate', $vars);
+}
+
+function sendAfterModuleSuspend($vars) {
+    // Normalize data under params key for call
+    $vars = $vars['params'];
+    curlPostData('https://accounts.dallasmakerspace.org/makermanager/endpoints/moduleSuspend', $vars);
+}
+
+function sendAfterModuleTerminate($vars) {
+    // Normalize data under params key for call
+    $vars = $vars['params'];
+    curlPostData('https://accounts.dallasmakerspace.org/makermanager/endpoints/moduleTerminate', $vars);
+}
+
+function sendAfterModuleUnsuspend($vars) {
+    // Normalize data under params key for call
+    $vars = $vars['params'];
+    curlPostData('https://accounts.dallasmakerspace.org/makermanager/endpoints/moduleUnsuspend', $vars);
+}
+
+add_hook('AddonActivation', 2, 'sendAddonActivation');
+add_hook('AddonCancelled', 2, 'sendAddonCancelled');
+add_hook('ClientAdd', 2, 'sendClientAdd');
+add_hook('ClientChangePassword', 2, 'sendClientChangePassword');
+add_hook('ClientEdit', 2, 'sendClientEdit');
+add_hook('InvoicePaid', 2, 'sendInvoicePaid');
+add_hook('AfterModuleCreate', 2, 'sendAfterModuleCreate');
+add_hook('AfterModuleSuspend', 2, 'sendAfterModuleSuspend');
+add_hook('AfterModuleTerminate', 2, 'sendAfterModuleTerminate');
+add_hook('AfterModuleUnsuspend', 2, 'sendAfterModuleUnsuspend');

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Events;
+namespace App\Events\Whmcs;
 
-use App\User;
+use App\WhmcsHook;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -11,20 +11,22 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class MemberAdded
+class Hook
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $user;
+    public $hook;
+    public $payload;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(WhmcsHook $hook)
     {
-        $this->user = $user;
+        $this->hook = $hook;
+        $this->payload = $hook->payload;
     }
 
     /**

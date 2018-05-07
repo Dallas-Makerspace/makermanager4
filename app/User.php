@@ -13,7 +13,6 @@ class User extends Authenticatable
 
     public $remember_token = false;
 
-
     /**
      * The name of the "created at" column.
      *
@@ -46,6 +45,7 @@ class User extends Authenticatable
         'phone',
         'email',
         'password',
+        'whmcs_user_id'
     ];
 
     /**

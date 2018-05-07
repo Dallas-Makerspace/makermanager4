@@ -13,22 +13,40 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\InvoicePaid' => [
+        /**
+         * Whmcs Events
+         */
+        'App\Events\Whmcs\AddonActivation' => [
         ],
-        'App\Events\MemberAdded' => [
-            'App\Listeners\ActiveDirectory\AddMember',
+        'App\Events\Whmcs\AddonCancelled' => [
+            // 'App\Listeners\SuspendMember', - This uses a different payload
         ],
-        'App\Events\MemberEdited' => [
-            'App\Listeners\ActiveDirectory\UpdateMember',
+        'App\Events\Whmcs\ClientAdd' => [
+            'App\Listeners\AddMember',
         ],
-        'App\Events\AfterModuleSuspend' => [
-            'App\Listeners\ActiveDirectory\UpdateMember',
+        'App\Events\Whmcs\ClientChangePassword' => [
+            'App\Listeners\ChangeMemberPassword',
         ],
-        'App\Events\AfterModuleTerminate' => [
-            'App\Listeners\ActiveDirectory\UpdateMember',
+        'App\Events\Whmcs\ClientEdit' => [
         ],
-        'App\Events\AddonActivation' => [
+        'App\Events\Whmcs\InvoicePaid' => [
+        ],
+        'App\Events\Whmcs\AfterModuleCreate' => [
+        ],
+        'App\Events\Whmcs\AfterModuleSuspend' => [
+            'App\Listeners\SuspendMember',
+        ],
+        'App\Events\Whmcs\AfterModuleTerminate' => [
+            'App\Listeners\SuspendMember',
+        ],
+        'App\Events\Whmcs\AfterModuleUnsuspend' => [
+        ],
 
+        /**
+         * SmartWaiver Events
+         */
+        'App\Events\WaiverSigned' => [
+            'App\Listeners\InsertWaiver'
         ]
     ];
 

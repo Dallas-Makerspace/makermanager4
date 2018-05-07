@@ -48,7 +48,7 @@ class ADUser
             'container' => array('Members'),
             'username' => $this->eloquentUser->username,
             'logon_name' => $this->eloquentUser->username . "@dms.local",
-            // 'password' => $this->eloquentUser - I'm guessing this should be set with changePassword() next
+            'password' => str_random(10) // this should be set with changePassword() next
         ]);
 
         if ( ! $user->save()) {

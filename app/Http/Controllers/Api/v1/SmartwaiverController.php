@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Api\v1;
 
+use App\Events\WaiverSigned;
 use App\SmartwaiverHook;
 use Illuminate\Http\Request;
 
@@ -29,6 +30,8 @@ class SmartwaiverController extends Controller
         $hook->save();
 
         \Log::info("SmartWaiver: " . json_encode($request->all()));
+
+        event(new WaiverSigned($hook));
 
         return response('', 200);
     }

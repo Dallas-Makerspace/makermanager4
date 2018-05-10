@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Events\WaiverSigned;
 use App\SmartwaiverData;
+use App\User;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Smartwaiver\Smartwaiver;
@@ -56,6 +57,12 @@ class InsertWaiver
 
         if ($record->save() === false) {
             return false;
+        }
+
+        $potentialUser = User::where('email', $record->email)->first();
+        if(! is_null($potentialUser)) {
+            $potentialUser->waiver_id = $record->waiverId;
+            $potentialUser->save();
         }
 
         $event->hook->processed_at = new \DateTime();

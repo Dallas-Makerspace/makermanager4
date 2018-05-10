@@ -21,6 +21,12 @@ class WhmcsController extends Controller
         $hook->payload = $payload;
         $hook->save();
 
+        $class = "\\App\\Events\\Whmcs\\" . $hook->hook;
+
+        if(class_exists($hook)) {
+            event(new $class($hook));
+        }
+
         return response('', 200);
     }
 

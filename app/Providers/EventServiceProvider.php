@@ -22,10 +22,11 @@ class EventServiceProvider extends ServiceProvider
             // 'App\Listeners\SuspendMember', - This uses a different payload
         ],
         'App\Events\Whmcs\ClientAdd' => [
-            'App\Listeners\AddMember',
+//            'App\Listeners\AddMember',
+            'App\Listeners\FindWaiverForMember',
         ],
         'App\Events\Whmcs\ClientChangePassword' => [
-            'App\Listeners\ChangeMemberPassword',
+//            'App\Listeners\ChangeMemberPassword',
         ],
         'App\Events\Whmcs\ClientEdit' => [
         ],
@@ -34,10 +35,10 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Whmcs\AfterModuleCreate' => [
         ],
         'App\Events\Whmcs\AfterModuleSuspend' => [
-            'App\Listeners\SuspendMember',
+//            'App\Listeners\SuspendMember',
         ],
         'App\Events\Whmcs\AfterModuleTerminate' => [
-            'App\Listeners\SuspendMember',
+//            'App\Listeners\SuspendMember',
         ],
         'App\Events\Whmcs\AfterModuleUnsuspend' => [
         ],

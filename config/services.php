@@ -56,6 +56,11 @@ return [
     'whmcs' => [
         'username' => env('WHMCS_USERNAME'),
         'password' => env('WHMCS_PASSWORD')
-    ]
+    ],
+
+    'mediawiki' => [
+        'username' => env('MEDIAWIKI_USERNAME'),
+        'password' => env('MEDIAWIKI_PASSWORD')
+    ],
 
 ];

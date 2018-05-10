@@ -22,6 +22,8 @@ Route::group(['namespace' => 'Api'], function() {
 
         Route::post('smartwaiver/process-hook', 'SmartwaiverController@postProcessHook');
 
+        Route::post('auth/check-credentials', 'AuthController@postCheckCredentials');
+
     });
 
 });

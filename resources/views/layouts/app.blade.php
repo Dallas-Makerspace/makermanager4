@@ -47,6 +47,7 @@
                                 <div class="dropdown-menu" aria-labelledby="adminUsersDropdown">
                                     <a class="dropdown-item" href="/admin/users">Users</a>
                                     <a class="dropdown-item" href="/admin/badges">Badges</a>
+                                    <a class="dropdown-item" href="/horizon">Queues</a>
                                 </div>
                             </li>
                             @endif

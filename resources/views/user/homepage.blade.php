@@ -91,9 +91,11 @@
                         @endforeach
                     </table>
 
+                    @if(count($user->unusedFamilyBadges()) > 0)
                     <div class="card-footer">
                         <a href="/family/create" class="btn btn-primary">Create Family Member</a>
                     </div>
+                    @endif
                 </div>
 
                 <br>

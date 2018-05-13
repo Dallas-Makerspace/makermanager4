@@ -9,6 +9,26 @@ class Badge extends Model
 {
     protected $table = 'badges';
 
+
+    /**
+     * The name of the "created at" column.
+     *
+     * @var string
+     */
+    const CREATED_AT = 'created';
+
+    /**
+     * The name of the "updated at" column.
+     *
+     * @var string
+     */
+    const UPDATED_AT = 'modified';
+
+    protected $dates = [
+        'created',
+        'modified',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -47,6 +47,8 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin', 'namespace
 
     Route::any('users/data', 'UserController@anyData');
     Route::resource('users', 'UserController');
+    Route::get('users/{id}/badge', 'UserController@getBadge');
+    Route::post('users/{id}/badge', 'UserController@postBadge');
 
     Route::any('badges/data', 'BadgeController@anyData');
     Route::resource('badges', 'BadgeController');

@@ -63,11 +63,15 @@
                                     <h3 class="@if($user->badge->status == 'active') text-success @endif">{{ $user->badge->number }}</h3>
                                 </div>
                             @else
-                                <strong>{{ $user->badge->status }}: </strong> {{ $user->badge->number }}
+                                <strong>{{ ucwords($user->badge->status) }}: </strong> {{ $user->badge->number }}
                             @endif
                         @else
                             <p>No badges found.</p>
                         @endif
+
+                        <div class="text-md-center">
+                            <a href="/admin/users/{{ $user->id }}/badge" class="btn btn-primary">Change Badge</a>
+                        </div>
                     </div>
                 </div>
 

@@ -66,8 +66,7 @@ class ScrapeDoorService extends Command
                 });
             });
 
-            $form = $crawler->selectButton('Next')->form();
-            $crawler = $client->submit($form);
+            echo($table[2][0]).PHP_EOL;
 
             foreach($table as $item) {
                 if(count($item) < 5) {
@@ -88,7 +87,7 @@ class ScrapeDoorService extends Command
                     continue;
                 }
 
-                LogUserVisit::firstOrCreate([
+                $r = LogUserVisit::firstOrCreate([
                     'source' => 'china',
                     'source_id' => $item[0],
                     'card_number' => $item[1],
@@ -97,9 +96,26 @@ class ScrapeDoorService extends Command
                     'door' => (int)$matches[3],
                     'created_at' => date('Y-m-d H:i:s', strtotime($item[4]))
                 ]);
+                if($r->wasRecentlyCreated) {
+                    $this->info("Created record: " . json_encode($r));
+                }
             }
 
-            $this->info("Turning to page " . $i);
+
+            // Get form data and set PN=Next
+
+
+            //$form = $crawler->filter('[name=swipeRec]')->form();
+            $form = $crawler->selectButton('Next')->form();;
+            $data = $form->getValues();
+            //$data['PN'] = 'Next';
+
+            $this->info("Page info: " . json_encode($data));
+
+            $crawler = $client->request('POST', config('services.doorcontrol.scrape_url'), $data);
+            //dd($crawler);
+
+            //$this->info("Turning to page " . $i);
         }
 
 

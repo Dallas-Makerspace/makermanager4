@@ -17,30 +17,37 @@ class EventServiceProvider extends ServiceProvider
          * Whmcs Events
          */
         'App\Events\Whmcs\AddonActivation' => [
+            'App\Listeners\Whmcs\CreateAddon'
         ],
         'App\Events\Whmcs\AddonCancelled' => [
-            // 'App\Listeners\SuspendMember', - This uses a different payload
+            'App\Listeners\Whmcs\CancelAddon'
         ],
         'App\Events\Whmcs\ClientAdd' => [
 //            'App\Listeners\AddMember',
-            'App\Listeners\FindWaiverForMember',
+//            'App\Listeners\FindWaiverForMember',
+            'App\Listeners\Whmcs\CreateMember'
         ],
         'App\Events\Whmcs\ClientChangePassword' => [
-//            'App\Listeners\ChangeMemberPassword',
+            'App\Listeners\Whmcs\ChangeMemberPassword'
         ],
         'App\Events\Whmcs\ClientEdit' => [
+            'App\Listeners\Whmcs\ChangeMember'
         ],
         'App\Events\Whmcs\InvoicePaid' => [
+//            'App\Listeners\Whmcs\InvoicePaid'
         ],
         'App\Events\Whmcs\AfterModuleCreate' => [
+            // Don't need to do anything with this now
+//            'App\Listeners\Whmcs\AfterModuleCreate'
         ],
         'App\Events\Whmcs\AfterModuleSuspend' => [
-//            'App\Listeners\SuspendMember',
+            'App\Listeners\Whmcs\SuspendMember'
         ],
         'App\Events\Whmcs\AfterModuleTerminate' => [
-//            'App\Listeners\SuspendMember',
+            'App\Listeners\Whmcs\SuspendMember'
         ],
         'App\Events\Whmcs\AfterModuleUnsuspend' => [
+            'App\Listeners\Whmcs\UnsuspendMember'
         ],
 
         /**

@@ -44,6 +44,11 @@ class User extends Authenticatable
         'username',
         'phone',
         'email',
+        'address_1',
+        'address_2',
+        'city',
+        'state',
+        'zip',
         'password',
         'whmcs_user_id'
     ];

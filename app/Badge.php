@@ -24,6 +24,8 @@ class Badge extends Model
      */
     const UPDATED_AT = 'modified';
 
+    const STATUS_UNASSIGNED = 'unassigned';
+
     protected $dates = [
         'created',
         'modified',

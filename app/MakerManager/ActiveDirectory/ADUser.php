@@ -18,10 +18,16 @@ class ADUser
      */
     protected $eloquentUser;
 
+    /**
+     * @var
+     */
+    protected $adUser;
+
     public function __construct(User $user, AdldapInterface $adldap)
     {
         $this->ldap = $adldap;
         $this->eloquentUser = $user;
+        $this->adUser = $this->eloquentUser->ldap;
     }
 
     public function create()
@@ -60,7 +66,24 @@ class ADUser
 
     public function update()
     {
-        // Check existence of user first
+        if($this->exists() === false) {
+            throw new \Exception("User does not exist.");
+        }
+
+        $this->adUser->fill([
+            'description' => $this->eloquentUser->whmcs_user_id,
+            'display_name' => $this->eloquentUser->first_name . ' ' . $this->eloquentUser->last_name,
+            'firstname' => $this->eloquentUser->first_name,
+            'surname' => $this->eloquentUser->last_name,
+            'email' => $this->eloquentUser->email,
+            'address_street' => $this->eloquentUser->address_1 . ' ' . $this->eloquentUser->address_2,
+            'address_city' => $this->eloquentUser->city,
+            'address_state' => $this->eloquentUser->state,
+            'address_code' => $this->eloquentUser->zip,
+            'telephone' => $this->eloquentUser->phone,
+        ]);
+
+        return $this->adUser->save();
     }
 
     /**
@@ -79,22 +102,38 @@ class ADUser
 
     public function changePassword($newPassword)
     {
+        if($this->exists() === false) {
+            throw new \Exception("User does not exist.");
+        }
 
+        return $this->adUser->setPassword($newPassword)->save();
     }
 
     public function addBadge(Badge $badge)
     {
+        if($this->exists() === false) {
+            throw new \Exception("User does not exist.");
+        }
 
+        return $this->adUser->setAttribute('employee_id', $badge->number)->save();
     }
 
     public function enable()
     {
-        // Check existence of user first
+        if($this->exists() === false) {
+            throw new \Exception("User does not exist.");
+        }
+
+        return $this->adUser->setAttribute('enabled', true)->save();
     }
 
     public function disable()
     {
-        // Check existence of user first
+        if($this->exists() === false) {
+            throw new \Exception("User does not exist.");
+        }
+
+        return $this->adUser->setAttribute('enabled', true)->save();
     }
 
     public function getGroups()

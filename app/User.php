@@ -105,6 +105,15 @@ class User extends Authenticatable
         return Badge::where('whmcs_user_id', $this->whmcs_user_id)->whereNull('user_id')->get();
     }
 
+    public function getLdapBadge() 
+    {
+        if(is_null($this->ldap)) {
+            $this->bindLdapUser();
+        }
+
+        return $this->ldap->getEmployeeId();
+    }
+
     public function getLdapGroupsByParent()
     {
         if(is_null($this->ldap)) {

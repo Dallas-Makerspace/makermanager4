@@ -19,6 +19,9 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/', 'UserController@getHome');
 
+    Route::any('users/data', 'UserController@anyData');
+    Route::resource('users', 'UserController');
+
     Route::get('/waiver', 'UserController@getWaiver');
     Route::post('/waiver', 'UserController@postWaiver');
 
@@ -46,9 +49,9 @@ Route::group(['middleware' => 'auth'], function() {
 Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin', 'namespace' => 'Admin'], function() {
 
     Route::any('users/data', 'UserController@anyData');
-    Route::resource('users', 'UserController');
-    Route::get('users/{id}/badge', 'UserController@getBadge');
-    Route::post('users/{id}/badge', 'UserController@postBadge');
+//    Route::resource('users', 'UserController');
+//    Route::get('users/{id}/badge', 'UserController@getBadge');
+//    Route::post('users/{id}/badge', 'UserController@postBadge');
 
     Route::any('badges/data', 'BadgeController@anyData');
     Route::resource('badges', 'BadgeController');

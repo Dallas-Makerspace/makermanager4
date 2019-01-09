@@ -18,7 +18,7 @@
 
                                 <div class="form-group">
                                     <label for="badge">New Badge</label>
-                                    <input id="badge" type="text" class="form-control" name="badge_number">
+                                    <input id="badge" type="text" class="form-control" name="number">
                                 </div>
 
                                 <button type="submit" class="btn btn-primary">Enable Badge</button>

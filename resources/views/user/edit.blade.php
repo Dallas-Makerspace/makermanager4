@@ -10,7 +10,7 @@
                     <h5 class="card-header">Edit User: {{ $user->fullName() }}</h5>
 
                     <div class="card-body">
-                        <form method="post" accept-charset="utf-8" role="form" action="/admin/users/2187">
+                        <form method="post" accept-charset="utf-8" role="form">
                             @csrf
                             <input type="hidden" name="_method" value="PUT">
                             <fieldset>

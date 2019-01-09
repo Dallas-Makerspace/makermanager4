@@ -24,6 +24,18 @@ class UserPolicy
     }
 
     /**
+     * Determine whether the user can view all users.
+     *
+     * @param  \App\User  $user
+     * @param  \App\User  $model
+     * @return mixed
+     */
+    public function all()
+    {
+        return false;
+    }
+
+    /**
      * Determine whether the user can view the model.
      *
      * @param  \App\User  $user
@@ -32,7 +44,7 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        return $user->id == $model->id;
+        return $this->update($user, $model);
     }
 
     /**
@@ -55,7 +67,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        return $user->id == $model->id;
+        return $user->id == $model->id || $user->family->pluck('id')->contains($model->id);
     }
 
     /**

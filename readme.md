@@ -1,5 +1,17 @@
 # Maker Manager 4
 
+## Getting Going
+Installation of MakerManager can be as easy or as complicated as you choose, since it integrates with many various systems you can just ignore what you don't want ot configure. 
+
+### Installation
+*This assumes a modern PHP stack is running in your development environment...*
+
+1. `git clone git@github.com:Dallas-Makerspace/makermanager4.git`
+2. `cd makermanager4`
+3. `composer install`
+4. Config local `.env` with the integrations you want 
+4. Load either an existing production DB or `database/empty.sql`
+5. `php artisan serve`
 
 ### URL Routes
 - endpoints - All of these routes require WHMCS authentication before access

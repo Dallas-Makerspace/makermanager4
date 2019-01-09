@@ -24,7 +24,7 @@
             $('#users-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '/admin/users/data',
+                ajax: '/users/data',
                 columns: [
                     { data: 'id', name: 'id' },
                     { data: 'username', name: 'username' },

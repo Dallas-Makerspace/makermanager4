@@ -58,13 +58,12 @@ class BadgeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'description' => 'required',
             'number' => 'required'
         ]);
 
         $b = new Badge();
         $b->user_id = 0;
-        $b->description = $request->get('description');
+        $b->description = 'Badge assigned by user.id=' . auth()->user()->id;
         $b->whmcs_user_id = 0;
         $b->whmcs_service_id = 0;
         $b->whmcs_addon_id = 0;

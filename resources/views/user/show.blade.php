@@ -4,10 +4,6 @@
 
     <div class="container">
 
-        <div class="text-center">
-            <h1>Welcome, {{ $user->fullName() }}!</h1>
-        </div>
-
         <div class="row">
             <div class="col-md-8">
                 <div class="card">
@@ -43,10 +39,14 @@
                     <div class="card-footer">
                         <div class="row">
                             <div class="col-md-6">
-                                <a href="/admin/users/{{ $user->id }}/edit" class="disabled btn btn-primary">Edit</a>
-                                <a href="/admin/users/{{ $user->id }}/sync" class="disabled btn btn-outline-primary">Sync</a>
+                                <a href="/users/{{ $user->id }}/edit" class="btn btn-primary">Edit</a>
+                                <a href="/users/{{ $user->id }}/sync" class="disabled btn btn-outline-primary">Sync</a>
                             </div>
                             <div class="col-md-6">
+                                <div class="text-right">
+                                    <button class="disabled btn btn-warning">Suspend</button>
+                                    <button class="disabled btn btn-danger">Delete</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -63,49 +63,48 @@
                                     <h3 class="@if($user->badge->status == 'active') text-success @endif">{{ $user->badge->number }}</h3>
                                 </div>
                             @else
-                                <strong>{{ $user->badge->status }}: </strong> {{ $user->badge->number }}
+                                <strong>{{ ucwords($user->badge->status) }}: </strong> {{ $user->badge->number }}
+                                @if($user->getLdapBadge() !== $user->badge->number)
+                                <p class="error">ActiveDirectory Badge Mismatch!</p>
+                                @endif
                             @endif
                         @else
                             <p>No badges found.</p>
                         @endif
-                            <div class="text-center">
-                                <a href="/badges" class="btn btn-primary btn-sm">Change Badge</a>
-                            </div>
+
+                        <div class="text-md-center">
+                            <a href="/users/{{ $user->id }}/badge" class="btn btn-primary">Change Badge</a>
+                        </div>
                     </div>
                 </div>
 
                 <br>
-                @if(! is_null($user->user_id))
-                    <a href="/admin/users/{{ $user->user_id }}" class="btn btn-lg btn-outline-primary btn-block">Go to Main Account</a>
-                    <br>
-                @else
+
+                @if($user->family->isNotEmpty())
                 <div class="card">
                     <div class="card-header">Family</div>
                     <table class="table mb-0">
                         @foreach($user->family as $family)
                             <tr>
-                                <td><a href="/admin/users/{{ $family->id }}">{{ $family->fullName() }}</a></td>
+                                <td><a href="/users/{{ $family->id }}">{{ $family->fullName() }}</a></td>
                                 <td>{{ $family->ad_active ? 'Active' : 'Inactive' }}</td>
-                                <td>{{ $family->badge->number ?? '' }}</td>
+                                <td>{{ $family->badge->number }}</td>
                             </tr>
                         @endforeach
                     </table>
-
-                    @if(count($user->unusedFamilyBadges()) > 0)
-                    <div class="card-footer">
-                        <a href="/family/create" class="btn btn-primary">Create Family Member</a>
-                    </div>
-                    @endif
                 </div>
 
                 <br>
+                @elseif(! is_null($user->user_id))
+                    <a href="/users/{{ $user->user_id }}" class="btn btn-lg btn-outline-primary btn-block">Go to Main Account</a>
+                    <br>
                 @endif
 
                 <div class="card">
                     <div class="card-header">Active Directory Groups</div>
                     <ul class="list-group list-group-flush">
-                        @foreach($user->getLdapGroupsByParent() as $group)
-                            <li class="list-group-item" data-toggle="tooltip" data-placement="left" title="{{ $group->getDescription() }}">{{ $group->getName() }}</li>
+                        @foreach($user->ldap->getGroups() as $group)
+                            <li class="list-group-item" title="{{ $group->getObjectCategoryDn() }}">{{ $group->getName() }}</li>
                         @endforeach
                     </ul>
                 </div>

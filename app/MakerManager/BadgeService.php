@@ -31,7 +31,7 @@ class BadgeService
 
     public function deactivate()
     {
-        $r = $this->request('remove', $this->badge->number);
+        $this->request('remove', $this->badge->number);
     }
 
     /**
@@ -40,7 +40,7 @@ class BadgeService
      * @param string $action
      * @param string $badge
      * @return mixed|\Psr\Http\Message\ResponseInterface
-     * @throws \Exception
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     private function request(string $action, string $badge)
     {

@@ -58,7 +58,6 @@ class Badge extends Model
         $history->changed_to = 'active';
         $history->save();
 
-
         return true;
     }
 

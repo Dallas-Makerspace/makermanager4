@@ -6,6 +6,7 @@ use App\Badge;
 use App\BadgeHistory;
 use Illuminate\Http\Request;
 use MakerManager\BadgeService;
+use Yajra\DataTables\DataTables;
 
 class BadgeController extends Controller
 {
@@ -16,11 +17,25 @@ class BadgeController extends Controller
      */
     public function index()
     {
-        $badge = auth()->user()->badge;
-        $familyBadges = [];
+        return view('badge.index');
+    }
 
-        return view('badge.index')
-            ->with('badge', $badge);
+    /**
+     * Process datatables ajax request.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    public function anyData()
+    {
+        return Datatables::of(Badge::query())
+            ->addColumn('action', function ($badge) {
+                return '<a href="/badges/'.$badge->id.'" class="btn btn-sm btn-primary">Edit</a>';
+            })
+            ->setRowClass(function ($badge) {
+                return $badge->status == 'active' ? '' : 'table-danger';
+            })
+            ->make(true);
     }
 
     public function postEnable(Request $request)
@@ -90,6 +105,7 @@ class BadgeController extends Controller
 
     }
 
+
     /**
      * Store a newly created resource in storage.
      *
@@ -98,8 +114,31 @@ class BadgeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'number' => 'required'
+        ]);
+
+        $badgeNumber = str_pad($request->get('badge_number'), 10, 0, STR_PAD_LEFT);
+
+        $b = new Badge();
+        $b->user_id = 0;
+        $b->description = 'Badge assigned by user.id=' . auth()->user()->id;
+        $b->whmcs_user_id = 0;
+        $b->whmcs_service_id = 0;
+        $b->whmcs_addon_id = 0;
+        $b->number = $badgeNumber;
+        $b->status = 'active';
+
+        try {
+            $b->save();
+            $b->activate();
+        } catch(\Exception $e) {
+            return redirect()->back()->withErrors($e);
+        }
+
+        return redirect('/badges/' . $b->id);
     }
+
 
     /**
      * Display the specified resource.

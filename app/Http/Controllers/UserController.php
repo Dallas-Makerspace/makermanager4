@@ -15,7 +15,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getHome()
+    public function getUserPage()
     {
         $user = auth()->user();
 
@@ -29,10 +29,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        try {
-            $this->authorize('all');
-        } catch(AuthorizationException $e) {
-            return $this->getHome();
+        if ( ! auth()->user()->is_admin ) {
+            return $this->getUserPage();
         }
 
         $users = User::paginate(30);

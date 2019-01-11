@@ -24,18 +24,6 @@ class UserPolicy
     }
 
     /**
-     * Determine whether the user can view all users.
-     *
-     * @param  \App\User  $user
-     * @param  \App\User  $model
-     * @return mixed
-     */
-    public function all()
-    {
-        return false;
-    }
-
-    /**
      * Determine whether the user can view the model.
      *
      * @param  \App\User  $user

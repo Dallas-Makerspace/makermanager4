@@ -17,10 +17,13 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth'], function() {
-    Route::get('/', 'UserController@getHome');
+    Route::get('/', 'UserController@getUserPage');
 
     Route::any('users/data', 'UserController@anyData');
     Route::resource('users', 'UserController');
+
+    Route::any('badges/data', 'BadgeController@anyData');
+    Route::resource('badges', 'BadgeController');
 
     Route::get('/waiver', 'UserController@getWaiver');
     Route::post('/waiver', 'UserController@postWaiver');
@@ -53,7 +56,5 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin', 'namespace
 //    Route::get('users/{id}/badge', 'UserController@getBadge');
 //    Route::post('users/{id}/badge', 'UserController@postBadge');
 
-    Route::any('badges/data', 'BadgeController@anyData');
-    Route::resource('badges', 'BadgeController');
 
 });
